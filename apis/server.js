@@ -34,10 +34,103 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+// get items list api
+app.get("/items", (req, res) => {
+  itemModel.find((err, list) => {
+    if (err) {
+      console.log(err)
+      res.json(err.message)
+    } else {
+      res.json(list)
+    }
+  })
 });
+
+// get item list api
+app.get("/item/:id", (req, res) => {
+  let itemId = req.params.id;
+
+  itemModel.findById(itemId, (err, item) => {
+    if (err) {
+      console.log(err)
+      res.json(err.message)
+    } else {
+      res.json(item)
+    }
+  })
+});
+
+// add item api
+app.post("/item", (req, res) => {
+  let item = itemModel({
+    name: req.body.name,
+    type: req.body.type,
+    price: req.body.price,
+    remain: req.body.remain,
+    description: req.body.description,
+  })
+
+  itemModel.create(item, (err, result) => {
+    if (err) {
+      console.log(err)
+      res.json(err.message)
+    } else {
+      res.json(result)
+    }
+  })
+});
+
+// update item api
+app.post("/item/:id", (req, res) => {
+  let itemID = req.params.id;
+
+  let item = itemModel({
+    _id: itemID,
+    name: req.body.name,
+    type: req.body.type,
+    price: req.body.price,
+    remain: req.body.remain,
+    description: req.body.description,
+  })
+
+  itemModel.create(item, (err, result) => {
+    if (err) {
+      console.log(err)
+      res.json(err.message)
+    } else {
+      res.json(result)
+    }
+  })
+});
+
+// update item remain number api
+app.post("/item/:id/remain", (req, res) => {
+  let itemID = req.params.id;
+
+  itemModel.findOneAndUpdate({ _id: itemID }, { "$inc": { "remain": -req.body.subtract } }, (err, result) => {
+    if (err) {
+      console.log(err)
+      res.json(err.message)
+    } else {
+      res.json(result)
+    }
+  })
+});
+
+// delete item number api
+app.post("/item/:id/delete", (req, res) => {
+  let itemID = req.params.id;
+
+  itemModel.remove({ _id: itemID }, (err) => {
+    if (err) {
+      console.log(err)
+      res.json(err.message)
+    } else {
+      res.json("success")
+    }
+  })
+});
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
