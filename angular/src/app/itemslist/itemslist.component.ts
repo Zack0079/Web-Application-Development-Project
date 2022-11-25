@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ItemService } from '../services/item.service';
 
 
 @Component({
@@ -10,11 +11,15 @@ import { Injectable } from '@angular/core';
 })
 export class ItemslistComponent implements OnInit {
   
+  itemList:any;
 
-  constructor() { }
+  constructor(private itemAPIs:ItemService) { }
 
   ngOnInit(): void {
-    console.log("asd")
+    
+    this.itemAPIs.getItemList().subscribe((itemList)=>{
+      this.itemList = itemList;
+    });
   }
 
 }
