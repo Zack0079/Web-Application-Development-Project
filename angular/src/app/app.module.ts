@@ -6,10 +6,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './partials/header/header.component';
 import { ItemslistComponent } from './itemslist/itemslist.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { ModifyItemComponent } from './modify-item/modify-item.component';
+import { FooterComponent } from './partials/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ModifyItemComponent } from './modify-item/modify-item.component';
     HeaderComponent,
     ItemslistComponent,
     ItemDetailComponent,
-    ModifyItemComponent
+    ModifyItemComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
