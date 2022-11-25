@@ -1,0 +1,33 @@
+<div class="">
+  <div class="flex">
+    <a routerLink="/items" class="btn btn-block btn-primary float-right">Back</a>
+  </div>
+
+  <h2>{{title}}</h2>
+  <div class="pt-2 container row">
+    <form #createItemForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Item Name</label>
+        <input class="form-control" name="name" id="name" value="" [(ngModel)]="item.name">
+      </div>
+      <div class="mb-3">
+        <label for="type" class="form-label">Item Type</label>
+        <input class="form-control" name="type" id="type" value="" [(ngModel)]="item.type">
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Item Price</label>
+        <input type="number" name="price" class="form-control" id="price" value="" [(ngModel)]="item.price">
+      </div>
+      <div class="mb-3">
+        <label for="remain" class="form-label">Item Remain</label>
+        <input type="number" step="1" name="remain" class="form-control" id="remain" value="" [(ngModel)]="item.remain">
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Item Description</label>
+        <textarea class="form-control" name="description" id="description" rows="3" value=""
+          [(ngModel)]="item.description"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>

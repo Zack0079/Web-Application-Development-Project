@@ -8,13 +8,17 @@ import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { HeaderComponent } from './header/header.component';
 import { ItemslistComponent } from './itemslist/itemslist.component';
+import { ItemDetailComponent } from './item-detail/item-detail.component';
+import { ModifyItemComponent } from './modify-item/modify-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     HeaderComponent,
-    ItemslistComponent
+    ItemslistComponent,
+    ItemDetailComponent,
+    ModifyItemComponent
   ],
   imports: [
     BrowserModule,
