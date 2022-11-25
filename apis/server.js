@@ -1,6 +1,7 @@
 const express = require("express");
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 // auth
 const session = require('express-session');
@@ -14,11 +15,11 @@ const userModel = require('./models/user');
 
 const app = express();
 
-// var corsOptions = {
-//   origin: "http://localhost:8081"
-// };
+let corsOptions = {
+  origin: "http://localhost:4200"
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 //MongoDB connection
 mongoose.connect(DB.URI);
