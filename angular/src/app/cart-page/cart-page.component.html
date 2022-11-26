@@ -1,0 +1,32 @@
+<div class="container">
+  <div ngClass="pt-2" *ngIf="itemInCart && itemInCart.length>0" class="row">
+    <h2>Cart List</h2>
+
+    <div *ngFor="let item of itemInCart" class="col-12">
+      <figure class="card card-product-grid">
+        <a class="text-reset text-decoration-none" [routerLink]="['/item',item._id]">
+          <div class="ps-2 pt-2 img-wrap">
+            <img src="/assets/images/Box.png">
+          </div>
+        </a>
+        <figcaption class="px-2 pb-2 info-wrap">
+          <a class="text-reset text-decoration-none" [routerLink]="['/item',item._id]">
+            <span class="type"> {{item.type}} </span>
+            <div class="fix-height">
+              <h6 class="title">{{item.name}}</h6>
+              <div class="price-wrap mt-2">
+                <span class="price">{{item.price}}</span>
+              </div>
+            </div>
+          </a>
+          <button (click)="removeItemInCart(item)" class="btn btn-block btn-primary">Remove </button>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+  <ng-template #elseBlock>
+    <div>
+      <h3>Sorry, there are no item in cart</h3>
+    </div>
+  </ng-template>
+</div>
