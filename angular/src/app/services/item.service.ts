@@ -7,30 +7,60 @@ import { Observable } from 'rxjs';
 })
 export class ItemService {
   api: string = "http://localhost:8080/"
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  
-  getItemList():Observable<any>{
+
+  getItemList(): Observable<any> {
     return this.http.get(`${this.api}items/`)
   }
 
-  getItemByID(id: any):Observable<any>{
+  getItemByID(id: any): Observable<any> {
     return this.http.get(`${this.api}item/${id}`)
   }
 
-  createItem(item:object):Observable<any>{
-    return this.http.post(`${this.api}item/`,item)
+  createItem(item: object): Observable<any> {
+    return this.http.post(`${this.api}item/`, item)
   }
 
-  updateItemByID(id: any, item:object):Observable<any>{
-    return this.http.post(`${this.api}item/${id}`,item)
+  updateItemByID(id: any, item: object): Observable<any> {
+    return this.http.post(`${this.api}item/${id}`, item)
   }
 
-  updateItemRemain(id: any, remain:Number):Observable<any>{
-    return this.http.post(`${this.api}item/${id}/remain`,{"remain":remain})
+  updateItemRemain(id: any, remain: Number): Observable<any> {
+    return this.http.post(`${this.api}item/${id}/remain`, { "remain": remain })
   }
 
-  deleteItem(id: any):Observable<any>{
+  deleteItem(id: any): Observable<any> {
     return this.http.get(`${this.api}item/${id}/detele`)
+  }
+
+  getItemsInCart() {
+    let tmp = localStorage.getItem("cart");
+    if (tmp)
+      return JSON.parse(tmp);
+    else return [];
+  }
+
+  addItemInCart(item: any) {
+    console.log(item);
+    let cartList = [];
+    let tmp = localStorage.getItem("cart");
+    if (tmp) {
+      cartList = JSON.parse(tmp);
+    }
+
+    cartList.push(item);
+    localStorage.setItem('cart', JSON.stringify(cartList));
+
+  }
+
+  removeItem(selectedItemId: any) {
+    let tmp = localStorage.getItem('cart');
+    if (tmp) {
+      let storageItems = JSON.parse(tmp);
+      let certList = storageItems.filter((item: any) => item._id !== selectedItemId);
+      console.log("certList:",certList)
+      localStorage.setItem('cart', JSON.stringify(certList));
+    }
   }
 }
