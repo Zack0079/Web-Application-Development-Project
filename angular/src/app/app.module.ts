@@ -11,6 +11,7 @@ import { ItemslistComponent } from './itemslist/itemslist.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { ModifyItemComponent } from './modify-item/modify-item.component';
 import { FooterComponent } from './partials/footer/footer.component';
+import { CartPageComponent } from './cart-page/cart-page.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FooterComponent } from './partials/footer/footer.component';
     ItemslistComponent,
     ItemDetailComponent,
     ModifyItemComponent,
-    FooterComponent
+    FooterComponent,
+    CartPageComponent
   ],
   imports: [
     BrowserModule,

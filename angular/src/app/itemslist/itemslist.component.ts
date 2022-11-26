@@ -22,4 +22,9 @@ export class ItemslistComponent implements OnInit {
     });
   }
 
+  addSelectedItemInCart(selectedItem:any):void{
+    console.log("addSelectedItemInCart");
+
+    this.itemAPIs.addItemInCart(selectedItem);
+  }
 }

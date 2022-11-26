@@ -1,26 +1,29 @@
 <div ngClass="pt-2" *ngIf="itemList && itemList.length>0" class="row">
   <h2>Item List</h2>
-  <div class="flex">
+  <!-- <div class="flex">
     <a routerLink="/item" class="btn btn-block btn-primary float-right">Create</a>
-  </div>
+  </div> -->
   <div *ngFor="let item of itemList" class="col-md-4">
-    <a class="text-reset text-decoration-none" [routerLink]="['/item',item._id]">
     <figure class="card card-product-grid">
-      <div class="ps-2 pt-2 img-wrap">
-        <img src="/assets/images/Box.png">
-      </div>
-      <figcaption class="px-2 pb-2 info-wrap">
-        <span class="type"> {{item.type}} </span>
-        <div class="fix-height">
-          <h6 class="title">{{item.name}}</h6>
-          <div class="price-wrap mt-2">
-            <span class="price">{{item.price}}</span>
-          </div>
+      <a class="text-reset text-decoration-none" [routerLink]="['/item',item._id]">
+        <div class="ps-2 pt-2 img-wrap">
+          <img src="/assets/images/Box.png">
         </div>
-        <a href="#" class="btn btn-block btn-primary">Add to cart </a>
+      </a>
+
+      <figcaption class="px-2 pb-2 info-wrap">
+        <a class="text-reset text-decoration-none" [routerLink]="['/item',item._id]">
+          <span class="type"> {{item.type}} </span>
+          <div class="fix-height">
+            <h6 class="title">{{item.name}}</h6>
+            <div class="price-wrap mt-2">
+              <span class="price">{{item.price}}</span>
+            </div>
+          </div>
+        </a>
+        <button (click)="addSelectedItemInCart(item)" class="btn btn-block btn-primary">Add to cart </button>
       </figcaption>
     </figure>
-    </a>
   </div>
 </div>
 <ng-template #elseBlock>
