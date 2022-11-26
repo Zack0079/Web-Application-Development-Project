@@ -9,7 +9,7 @@ import { ModifyItemComponent } from './modify-item/modify-item.component';
 
 const routes: Routes = [
   { path: "", component: LandingPageComponent },
-  { path: "items", component: ItemslistComponent },
+  { path: "items", component: LandingPageComponent },
   { path: "item/:id", component: ItemDetailComponent },
   { path: "item", component: ModifyItemComponent },
   { path: "item/:id/update", component: ModifyItemComponent },
