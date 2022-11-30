@@ -7,6 +7,8 @@ import { ItemslistComponent } from './itemslist/itemslist.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { ModifyItemComponent } from './modify-item/modify-item.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: "", component: LandingPageComponent },
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: "item", component: ModifyItemComponent },
   { path: "item/:id/update", component: ModifyItemComponent },
   { path: "cart", component: CartPageComponent },
+  { path: "login", component: LoginComponent },
+  { path: "signup", component: RegisterComponent },
 ];
 
 @NgModule({

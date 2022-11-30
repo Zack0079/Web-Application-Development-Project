@@ -12,6 +12,8 @@ import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { ModifyItemComponent } from './modify-item/modify-item.component';
 import { FooterComponent } from './partials/footer/footer.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { CartPageComponent } from './cart-page/cart-page.component';
     ItemDetailComponent,
     ModifyItemComponent,
     FooterComponent,
-    CartPageComponent
+    CartPageComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
