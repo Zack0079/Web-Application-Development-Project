@@ -6,10 +6,11 @@ const cors = require('cors')
 // auth
 const session = require('express-session');
 const passport = require('passport');
-const passportLocal = require('passport-local');
+
 //DB
-const mongoose = require("mongoose");
-const DB = require('./db.config');
+const DB = require('./db');
+const auth = require('./auth-service');
+
 const itemModel = require('./models/item');
 const userModel = require('./models/user');
 
@@ -20,14 +21,6 @@ let corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-//MongoDB connection
-mongoose.connect(DB.URI);
-let mongoDB = mongoose.connection;
-mongoDB.on('error', console.error.bind(console, 'Connection Error:'));
-mongoDB.once('open', () => {
-  console.log("Connected to MongoDB");
-});
 
 
 // app.use(cookieParser());
@@ -133,8 +126,20 @@ app.post("/item/:id/delete", (req, res) => {
 });
 
 
+
+app.post("/auth/login", auth.login);
+
+
+app.post("/auth/register", auth.register);
+
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+DB.connect.then(() => {
+  app.listen(PORT, () => {
+    console.log("APIs is listening")
+  });
+}).catch((err) => {
+  console.log(err)
+  res.status(500).json(err)
 });

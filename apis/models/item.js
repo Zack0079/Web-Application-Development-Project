@@ -27,7 +27,19 @@ let itemModel = mongoose.Schema({
     type: String,
     default: "",
     trim: true,
-  }
+  },
+  shop: {
+    type: Number,
+    required: "Shop is required"
+  },
+  created: {
+    type: Date,
+    default: Date.now(),
+  },
+  updated: {
+    type: Date,
+    default: Date.now(),
+  },
 }, {
   collection: "items"
 })
