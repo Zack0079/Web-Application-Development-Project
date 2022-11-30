@@ -1,0 +1,45 @@
+<div class="">
+  <h2>Sign Up</h2>
+  <div class="pt-2 container row">
+    <form #loginForm="ngForm" (ngSubmit)="register()">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input class="form-control" name="username" id="username" value="" [(ngModel)]="data.username">
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" id="email" value="" [(ngModel)]="data.email">
+      </div>
+
+      <div class="mb-3">
+        <label for="displayName" class="form-label">Display Name</label>
+        <input class="form-control" name="displayName" id="displayName" value="" [(ngModel)]="data.displayName">
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" id="password" value="" [(ngModel)]="data.password">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Repeat Password</label>
+        <input type="password" name="password" class="form-control" id="password" value="" [(ngModel)]="data.repeatedPassword">
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="shop" id="shop" [(ngModel)]="data.role"  value="2">
+        <label class="form-check-label" for="shop">
+          Shop
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="customer" id="customer" [(ngModel)]="data.role"  value="3" checked>
+        <label class="form-check-label" for="customer">
+          Customer
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+  </div>
+</div>
