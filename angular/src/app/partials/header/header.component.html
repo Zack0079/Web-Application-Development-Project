@@ -15,8 +15,8 @@
             Home</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link active" href="#"><i class="fa-sharp fa-solid fa-circle-info"></i> Products</a>
+        <li *ngIf="role == 2" class="nav-item">
+          <a class="nav-link active" routerLink="/product"><i class="fa-sharp fa-solid fa-circle-info"></i>Products</a>
         </li>
 
         <li class="nav-item">
@@ -24,7 +24,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link active" href="#"><i class="fa-solid fa-list-ul"></i>
+          <a class="nav-link active" routerLink="/wishlist"><i class="fa-solid fa-list-ul"></i>
             Wishlist</a>
         </li>
 
@@ -33,10 +33,11 @@
             Payment</a>
         </li>
 
-        <li class="nav-item"><button type="button" class="btn btn-primary" routerLink="/login">Login</button>
+        <li *ngIf="!logined" class="nav-item"><button type="button" class="btn btn-primary" routerLink="/login">Login</button>
         </li>
         <li class="nav-item">&nbsp;&nbsp;</li>
-        <li class="nav-item"><button type="button" class="btn btn-light" routerLink="/signup">Signup</button>
+        <li *ngIf="!logined" class="nav-item"><button type="button" class="btn btn-light" routerLink="/signup">Signup</button>
+        <li *ngIf="logined" class="nav-item"><button type="button" class="btn btn-light" (click)="logout()">Logout</button>
         </li>
       </ul>
     </div>

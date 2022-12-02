@@ -26,6 +26,9 @@ export class LoginComponent implements OnInit {
     this.authAPIs.login(this.data).subscribe((res) => {
       if(res&& res.token){
         localStorage.setItem("token",res.token)
+        this.router.navigate(['/']).then(() => {
+          window.location.reload();
+        });
       }else{
         this.errorMsg = res.error;
       }

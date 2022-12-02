@@ -26,8 +26,11 @@ export class RegisterComponent implements OnInit {
   }
   register() {
     this.authAPIs.register(this.data).subscribe((res) => {
-      if(res&& res.token){
+      if(res && res.token){
         localStorage.setItem("token",res.token)
+        this.router.navigate(['/']).then(() => {
+          window.location.reload();
+        });
       }else{
         this.errorMsg = res.error;
       }
