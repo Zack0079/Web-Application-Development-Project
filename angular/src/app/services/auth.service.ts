@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router: Router,) { }
   api: string = "http://localhost:8080/auth/"
 
   login(data: any): Observable<any> {
@@ -16,5 +18,42 @@ export class AuthService {
 
   register(data: any): Observable<any> {
     return this.http.post(`${this.api}register`,data)
+  }
+
+
+  getUserID(): string{
+    let token = localStorage.getItem("token")
+    if (token == null || !token) {
+      this.router.navigate(["/login"])
+      return "";
+    } else {
+      let tokenExpiry:any = jwt_decode(token);
+      console.log(tokenExpiry);
+      return tokenExpiry.id;
+    }    
+  }
+
+  getToken(): string{
+    let token = localStorage.getItem("token")
+    if (token == null || !token) {
+      this.router.navigate(["/login"])
+      return "";
+    } else {
+      return token;
+    }
+  }
+
+  checkToken(){
+    let token = localStorage.getItem("token")
+    if (token == null || !token) {
+      this.router.navigate(["/login"])
+    } else {
+      let tokenExpiry:any = jwt_decode(token);
+      if(tokenExpiry.exp * 1000 <= Date.now()){
+        localStorage.removeItem("token");
+        this.router.navigate(["/login"]);
+      };
+    }
+      return;
   }
 }

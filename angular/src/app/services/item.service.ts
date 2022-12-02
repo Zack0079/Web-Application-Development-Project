@@ -1,14 +1,20 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
   api: string = "http://localhost:8080/"
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private auth: AuthService) { }
 
+
+  headers = new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*')
+    .set('Authorization', `JWT ${this.auth.getToken()}`)
 
   getItemList(): Observable<any> {
     return this.http.get(`${this.api}items/`)
@@ -18,12 +24,17 @@ export class ItemService {
     return this.http.get(`${this.api}item/${id}`)
   }
 
+  getItemsByShopID(shopId: any): Observable<any> {
+    return this.http.get(`${this.api}shop/${shopId}/items`,{ 'headers': this.headers })
+  }
+
   createItem(item: object): Observable<any> {
-    return this.http.post(`${this.api}item/`, item)
+    console.log(this.headers)
+    return this.http.post(`${this.api}item/`, item, { 'headers': this.headers })
   }
 
   updateItemByID(id: any, item: object): Observable<any> {
-    return this.http.post(`${this.api}item/${id}`, item)
+    return this.http.post(`${this.api}item/${id}`, item,  { 'headers': this.headers })
   }
 
   updateItemRemain(id: any, remain: Number): Observable<any> {
@@ -31,7 +42,7 @@ export class ItemService {
   }
 
   deleteItem(id: any): Observable<any> {
-    return this.http.get(`${this.api}item/${id}/detele`)
+    return this.http.get(`${this.api}item/${id}/detele`, { 'headers': this.headers })
   }
 
   getItemsInCart() {
@@ -59,7 +70,7 @@ export class ItemService {
     if (tmp) {
       let storageItems = JSON.parse(tmp);
       let certList = storageItems.filter((item: any) => item._id !== selectedItemId);
-      console.log("certList:",certList)
+      console.log("certList:", certList)
       localStorage.setItem('cart', JSON.stringify(certList));
     }
   }
