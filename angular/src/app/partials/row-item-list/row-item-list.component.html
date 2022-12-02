@@ -1,0 +1,30 @@
+<div ngClass="pt-2" *ngIf="items && items.length>0" class="row">
+
+  <div *ngFor="let item of items" class="col-12">
+    <figure class="card card-product-grid">
+      <a class="text-reset text-decoration-none" [routerLink]="['/item',item._id,itemUri]">
+        <div class="ps-2 pt-2 img-wrap">
+          <img src="/assets/images/Box.png">
+        </div>
+      </a>
+      <figcaption class="px-2 pb-2 info-wrap">
+        <a class="text-reset text-decoration-none" [routerLink]="['/item',item._id,itemUri]">
+          <span class="type"> {{item.type}} </span>
+          <div class="fix-height">
+            <h6 class="title">{{item.name}}</h6>
+            <div class="price-wrap mt-2">
+              <span class="price">{{item.price}}</span>
+            </div>
+          </div>
+        </a>
+        <button *ngIf="showButton1" (click)="clickbutton(item)"
+          class="btn btn-block btn-primary">{{Button1Text}}</button>
+      </figcaption>
+    </figure>
+  </div>
+</div>
+<ng-template #elseBlock>
+  <div>
+    <h3>Sorry, there are no item</h3>
+  </div>
+</ng-template>

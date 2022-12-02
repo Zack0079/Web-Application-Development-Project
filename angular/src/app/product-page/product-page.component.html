@@ -1,0 +1,11 @@
+
+<div class="container">
+  <h2>Your Products</h2>
+
+  <div>
+    <a routerLink="/item">
+      <button  class="btn btn-block btn-primary">New Product</button>
+    </a>
+    <app-row-item-list [items]="items" [showButton1]="false" [Button1Text]="'Remove'" [itemUri]="'update'"></app-row-item-list>
+  </div>
+</div>
