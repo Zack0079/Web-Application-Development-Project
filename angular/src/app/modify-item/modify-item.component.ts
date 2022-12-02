@@ -60,4 +60,15 @@ export class ModifyItemComponent implements OnInit {
       this.item = item;
     });
   }
+
+  deleteItem(){
+    this.itemAPIs.deleteItem(this.itemId).subscribe((res) => {
+      console.log(res)
+      if(res && res.item && res.item){
+        this.router.navigate(["/product"])
+      }else{
+        //TODO: Error handle
+      }
+    });
+  }
 }

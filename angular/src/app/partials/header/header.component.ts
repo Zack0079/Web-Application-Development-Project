@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
       let tmpObj: any = jwt_decode(token);
       this.logined = true;
       this.role = tmpObj.role;
+      console.log(this.role)
       this.displayName = tmpObj.displayName;
     }
   }

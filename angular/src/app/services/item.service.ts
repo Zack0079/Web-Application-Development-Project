@@ -25,7 +25,11 @@ export class ItemService {
   }
 
   getItemsByShopID(shopId: any): Observable<any> {
-    return this.http.get(`${this.api}shop/${shopId}/items`,{ 'headers': this.headers })
+    return this.http.get(`${this.api}shop/${shopId}/items`, { 'headers': this.headers })
+  }
+
+  getItemsByUserID(userId: any): Observable<any> {
+    return this.http.get(`${this.api}${userId}/wish-list`, { 'headers': this.headers })
   }
 
   createItem(item: object): Observable<any> {
@@ -34,7 +38,7 @@ export class ItemService {
   }
 
   updateItemByID(id: any, item: object): Observable<any> {
-    return this.http.post(`${this.api}item/${id}`, item,  { 'headers': this.headers })
+    return this.http.post(`${this.api}item/${id}`, item, { 'headers': this.headers })
   }
 
   updateItemRemain(id: any, remain: Number): Observable<any> {
@@ -42,7 +46,16 @@ export class ItemService {
   }
 
   deleteItem(id: any): Observable<any> {
-    return this.http.get(`${this.api}item/${id}/detele`, { 'headers': this.headers })
+    return this.http.post(`${this.api}item/${id}/delete`,{}, { 'headers': this.headers })
+  }
+
+
+  addItemsInWishList(item: any, id: any ) {
+    return this.http.post(`${this.api}item/${item._id}/wishList`, { user_id: id }, { 'headers': this.headers })
+  }
+
+  deleteItemsInWishList(item: any, id: any,) {
+    return this.http.post(`${this.api}item/${item._id}/wishList/delete`, { user_id: id }, { 'headers': this.headers })
   }
 
   getItemsInCart() {

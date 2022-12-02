@@ -9,19 +9,29 @@ import { ItemService } from '../services/item.service';
 })
 export class WishlistPageComponent implements OnInit {
 
-  itemInCart:any;
-
-  constructor(private itemAPIs:ItemService, private authAPIs:AuthService) { }
+  items: any;
+  id: any;
+  constructor(private itemAPIs: ItemService, private authAPIs: AuthService) { }
 
   ngOnInit(): void {
+    this.id = this.authAPIs.getUserID()
     this.authAPIs.checkToken();
-    this.itemInCart = this.itemAPIs.getItemsInCart();
-    console.log("itemInCart:",this.itemInCart)
+    this.itemAPIs.getItemsByUserID(this.id).subscribe((res) => {
+      console.log(res)
+      if (res) {
+        return this.items = res.map((item: any) => item.item_id);;
+      }
+      return [];
+    });
   }
 
-  removeItemInWishList(selected:any){
-    console.log("selected:",selected._id)
-    this.itemAPIs.removeItem(selected._id);
-    this.itemInCart =  this.itemInCart.filter((item: any)  => item._id !== selected._id );
+  removeItemInWishList(selected: any) {
+    this.itemAPIs.deleteItemsInWishList(selected, this.id).subscribe((res) => {
+      console.log(res)
+      if (res) {
+        window.location.reload();
+      }
+      return [];
+    });
   }
 }

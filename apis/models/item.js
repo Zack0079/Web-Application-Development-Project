@@ -21,7 +21,13 @@ let itemModel = mongoose.Schema({
   },
   remain: {
     type: Number,
+    default:0,
     required: "Remain number is required"
+  },
+  Sold: {
+    type: Number,
+    default:0,
+    required: true
   },
   description: {
     type: String,
@@ -29,8 +35,13 @@ let itemModel = mongoose.Schema({
     trim: true,
   },
   shop: {
-    type: Number,
+    type: String,
     required: "Shop is required"
+  },
+  status: {
+    type: Number,
+    default:1,
+    required: "Required"
   },
   created: {
     type: Date,

@@ -8,21 +8,16 @@ let User = userModel.User;
 
 let jwt_obj = {
   secretOrKey: "sixber",
-  jwtFromRequest: passportJWT.ExtractJwt.fromAuthHeaderWithScheme("jwt")
+  jwtFromRequest: passportJWT.ExtractJwt.fromAuthHeaderWithScheme("jwt"),
+  passReqToCallback: true
 }
 
 let StrategyJWT = passportJWT.Strategy;
-let strategy = new StrategyJWT(jwt_obj, function (jwt_payload, next) {
+let strategy = new StrategyJWT(jwt_obj, function (req, jwt_payload, done) {
   User.findById(jwt_payload.id)
     .then(user => {
       if (user) {
-        return done(null, {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          displayName: user.displayName,
-          role: user.role
-        });
+        return done(null, req);
       }
       return done(null, false);
     }).catch(err => {
@@ -32,11 +27,11 @@ let strategy = new StrategyJWT(jwt_obj, function (jwt_payload, next) {
 })
 passport.use(strategy);
 
+let expiredIn = { expiresIn: "7d" }
 
 module.exports.login = (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
-
   User.findOne({ username })
     .then(user => {
       if (!user) {
@@ -50,10 +45,10 @@ module.exports.login = (req, res) => {
               username: user.username,
               email: user.email,
               displayName: user.displayName,
-              role: user.role
+              role: user.role,
             }
 
-            let token = jwt.sign(payload, jwt_obj.secretOrKey);
+            let token = jwt.sign(payload, jwt_obj.secretOrKey, expiredIn);
             return res.json({ msg: "Login successful", token: token });
           } else {
             return res.status(400).json({ errMsg: "Incorrect Date" });
@@ -94,7 +89,7 @@ module.exports.register = async (req, res, next) => {
             displayName: user.displayName,
             role: user.role
           }
-          let token = jwt.sign(payload, jwt_obj.secretOrKey);
+          let token = jwt.sign(payload, jwt_obj.secretOrKey, expiredIn);
           resolve(res.json({ msg: "Signup successful", token: token }))
         }
       });
