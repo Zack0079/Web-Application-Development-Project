@@ -22,6 +22,5 @@ export class CartPageComponent implements OnInit {
     console.log("selected:",selected._id)
     this.itemAPIs.removeItem(selected._id);
     this.itemInCart =  this.itemInCart.filter((item: any)  => item._id !== selected._id );
-
   }
 }
