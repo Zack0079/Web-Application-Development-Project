@@ -6,14 +6,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { HeaderComponent } from './partials/header/header.component';
 import { ItemslistComponent } from './itemslist/itemslist.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { ModifyItemComponent } from './modify-item/modify-item.component';
-import { FooterComponent } from './partials/footer/footer.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { WishlistPageComponent } from './wishlist-page/wishlist-page.component';
+import { ProductPageComponent } from './product-page/product-page.component';
+
+import { HeaderComponent } from './partials/header/header.component';
+import { FooterComponent } from './partials/footer/footer.component';
+import { RowItemListComponent } from './partials/row-item-list/row-item-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,10 @@ import { RegisterComponent } from './register/register.component';
     FooterComponent,
     CartPageComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    WishlistPageComponent,
+    ProductPageComponent,
+    RowItemListComponent
   ],
   imports: [
     BrowserModule,

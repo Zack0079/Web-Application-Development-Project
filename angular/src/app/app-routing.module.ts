@@ -9,6 +9,8 @@ import { ModifyItemComponent } from './modify-item/modify-item.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { WishlistPageComponent } from './wishlist-page/wishlist-page.component';
+import { ProductPageComponent } from './product-page/product-page.component';
 
 const routes: Routes = [
   { path: "", component: LandingPageComponent },
@@ -19,6 +21,8 @@ const routes: Routes = [
   { path: "cart", component: CartPageComponent },
   { path: "login", component: LoginComponent },
   { path: "signup", component: RegisterComponent },
+  { path: "wishlist", component: WishlistPageComponent },
+  { path: "product", component: ProductPageComponent },
 ];
 
 @NgModule({
