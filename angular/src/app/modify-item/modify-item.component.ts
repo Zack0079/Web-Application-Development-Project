@@ -20,7 +20,8 @@ export class ModifyItemComponent implements OnInit {
     remain: 0,
     description: "",
     shop: "",
-  }
+  };
+  buttonText:string = "Submit";
 
   constructor(private authAPIs: AuthService, private itemAPIs: ItemService, private router: Router, private routerLink: ActivatedRoute) {
     this.itemId = this.routerLink.snapshot.params['id'];
@@ -34,6 +35,7 @@ export class ModifyItemComponent implements OnInit {
   ngOnInit(): void {
     if (this.itemId) {
       this.title = "Update Item"
+      this.buttonText = "Update"
     }
   }
   onSubmit() {

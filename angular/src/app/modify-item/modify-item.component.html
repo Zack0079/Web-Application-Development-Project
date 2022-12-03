@@ -27,8 +27,8 @@
         <textarea class="form-control" name="description" id="description" rows="3" value=""
           [(ngModel)]="item.description"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <button (click)="deleteItem()" class="btn btn-danger">Delete</button>
+      <button type="submit" class="btn btn-primary">{{buttonText}}</button>
+      <button *ngIf="itemId" (click)="deleteItem()" class="btn btn-danger">Delete</button>
 
     </form>
   </div>
