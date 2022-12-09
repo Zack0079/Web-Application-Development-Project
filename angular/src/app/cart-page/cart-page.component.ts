@@ -25,6 +25,6 @@ export class CartPageComponent implements OnInit {
   }
 
   updateQuantify(selected:any){
-    
+    this.itemAPIs.updateQuantifyInCart(selected._id, selected.quantify);
   }
 }

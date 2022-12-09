@@ -70,6 +70,16 @@ export class ItemService {
     else return [];
   }
 
+  updateQuantifyInCart(selectedItemId:any, quantify: number){
+    let tmp = localStorage.getItem('cart');
+    if (tmp) {
+      let storageItems = JSON.parse(tmp);
+      let index = storageItems.map((x:any) => x._id).indexOf(selectedItemId)
+      storageItems[index].quantify = quantify;
+      localStorage.setItem('cart', JSON.stringify(storageItems));
+    }
+  }
+
   addItemInCart(item: any) {
     console.log(item);
     let cartList = [];
@@ -78,11 +88,6 @@ export class ItemService {
       cartList = JSON.parse(tmp);
     }
     let index = cartList.map((x:any) => x._id).indexOf(item._id)
-
-    console.log(cartList);
-    console.log(index);
-
-
     if (index >= 0) {
       cartList[index].quantify += 1;
     } else {
