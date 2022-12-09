@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Cart List</h2>
   <app-row-item-list [items]="itemInCart" [showButton1]="true" [showQuantify]="true" [Button1Text]="'Remove'"
-    (clickButton1Event)="removeItemInCart($event)">
+    (updateQuantifyEvent)="updateQuantify($event)" (clickButton1Event)="removeItemInCart($event)">
   </app-row-item-list>
 </div>

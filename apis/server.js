@@ -244,7 +244,7 @@ app.post("/item/:id/wishList/delete", passport.authenticate("jwt", { session: fa
   }
 
   return new Promise((resolve, reject) => {
-    wishListItemModel.remove(removeObj, (err, result) => {
+    wishListItemModel.deleteOne(removeObj, (err, result) => {
       if (err) {
         console.log(err)
         reject(res.status(500).json({ errMsg: err }));

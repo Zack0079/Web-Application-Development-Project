@@ -77,8 +77,19 @@ export class ItemService {
     if (tmp) {
       cartList = JSON.parse(tmp);
     }
+    let index = cartList.map((x:any) => x._id).indexOf(item._id)
 
-    cartList.push(item);
+    console.log(cartList);
+    console.log(index);
+
+
+    if (index >= 0) {
+      cartList[index].quantify += 1;
+    } else {
+      item.quantify = 1;
+      cartList.push(item);
+    }
+
     localStorage.setItem('cart', JSON.stringify(cartList));
 
   }

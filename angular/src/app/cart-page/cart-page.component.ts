@@ -23,4 +23,8 @@ export class CartPageComponent implements OnInit {
     this.itemAPIs.removeItem(selected._id);
     this.itemInCart =  this.itemInCart.filter((item: any)  => item._id !== selected._id );
   }
+
+  updateQuantify(selected:any){
+    
+  }
 }
