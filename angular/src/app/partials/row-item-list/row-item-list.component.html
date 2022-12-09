@@ -13,12 +13,28 @@
           <div class="fix-height">
             <h6 class="title">{{item.name}}</h6>
             <div class="price-wrap mt-2">
-              <span class="price">{{item.price}}</span>
+              <span class="price">${{item.price}}</span>
+            </div>
+            <div class="price-wrap mt-2">
+              <span class="price">Remain: {{item.remain}}</span>
             </div>
           </div>
         </a>
-        <button *ngIf="showButton1" (click)="clickbutton(item)"
+        
+        <div *ngIf="showQuantify" class="price-wrap mt-2">
+          <select (change)="updateQuantify(item)" [(ngModel)]="item.quantify">
+            <option *ngFor="let num of numbers" [ngValue]="num">
+              {{ num }}
+            </option>
+          </select>
+        </div>
+
+        <button *ngIf="showButton1" (click)=" clickbutton1(item)"
           class="btn btn-block btn-primary">{{Button1Text}}</button>
+
+
+        <button *ngIf="showButton2" (click)="clickbutton2(item)"
+          class="btn btn-block btn-primary">{{Button2Text}}</button>
       </figcaption>
     </figure>
   </div>

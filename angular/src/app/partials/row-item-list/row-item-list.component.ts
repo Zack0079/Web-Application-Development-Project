@@ -8,22 +8,46 @@ import { ItemService } from '../../services/item.service';
 })
 export class RowItemListComponent implements OnInit {
   @Input() items: any;
+
   @Input() showButton1: any;
   @Input() Button1Text: any;
-  @Input() itemUri: string = "";
-  @Output() newItemEvent = new EventEmitter<string>();
 
-  constructor() { }
+  @Input() showButton2: any;
+  @Input() Button2Text: any;
+
+  @Input() showQuantify: any;
+
+  @Input() itemUri: string = "";
+  @Output() clickButton1Event = new EventEmitter<string>();
+  @Output() clickButton2Event = new EventEmitter<string>();
+  @Output() clickItemEvent = new EventEmitter<string>();
+  @Output() updateQuantifyEvent = new EventEmitter<string>();
+
+  numbers: Array<number> = [];
+
+  constructor() { 
+    new Array(10).fill(0).map((x,i)=>{
+      this.numbers.push(i+1);
+    })
+  }
+  
 
   ngOnInit(): void {
   }
 
+  clickbutton1(item: any) {
+    this.clickButton1Event.emit(item);
+  }
 
-  clickbutton(item: any) {
-    this.newItemEvent.emit(item);
+  clickbutton2(item: any) {
+    this.clickButton2Event.emit(item);
   }
 
   clickItem(item: any) {
-    this.newItemEvent.emit(item);
+    this.clickItemEvent.emit(item);
+  }
+
+  updateQuantify(item: any){
+    this.updateQuantifyEvent.emit(item);
   }
 }

@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 
-let wishListItemModel = mongoose.Schema({
+const wishListItemModel = mongoose.Schema({
 
   user_id: {
     type: String,
@@ -11,9 +11,13 @@ let wishListItemModel = mongoose.Schema({
     required: "Item Id number is required",
     ref: 'Item'
   },
+  quantify: {
+    type: Number,
+    required: true,
+    default: 1,
+  },
 }, {
   collection: "wishListItems"
 })
-
 
 module.exports = mongoose.model('WishListItem', wishListItemModel)

@@ -1,4 +1,19 @@
 <div class="container">
   <h2>Wishlist</h2>
-  <app-row-item-list [items]="items" [showButton1]="true" [Button1Text]="'Remove from Wish List'" [itemUri]="''" (newItemEvent)="removeItemInWishList($event)"></app-row-item-list>
+  <app-row-item-list 
+  [items]="items" 
+  [showButton1]="true"
+  [showButton2]="true"
+  [showQuantify]="true"
+
+  [Button1Text]="'Add to Cart'" 
+  (clickButton1Event)="addSelectedItemInCart($event)"
+
+  [Button2Text]="'Remove from Wish List'" 
+  (clickButton2Event)="removeItemInWishList($event)"
+
+  (updateQuantifyEvent)="updateQuantify($event)"
+
+  [itemUri]="''">
+  </app-row-item-list>
 </div>

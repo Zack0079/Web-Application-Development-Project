@@ -17,11 +17,25 @@ export class WishlistPageComponent implements OnInit {
     this.id = this.authAPIs.getUserID()
     this.authAPIs.checkToken();
     this.itemAPIs.getItemsByUserID(this.id).subscribe((res) => {
-      console.log(res)
       if (res) {
-        return this.items = res.map((item: any) => item.item_id);;
+         this.items = res.map((item: any) => {
+          let tmp = item.item_id;
+          tmp.quantify = item.quantify;
+          return tmp
+        });
       }
       return [];
+    });
+  }
+
+  addSelectedItemInCart(selectedItem:any):void{
+    // console.log("addSelectedItemInCart");
+    this.itemAPIs.addItemInCart(selectedItem);
+  }
+
+  updateQuantify(selected: any){
+    this.itemAPIs.updateItemsInWishList(selected, this.id).subscribe((res) => {
+      console.log(res)
     });
   }
 

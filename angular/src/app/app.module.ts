@@ -18,6 +18,8 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { HeaderComponent } from './partials/header/header.component';
 import { FooterComponent } from './partials/footer/footer.component';
 import { RowItemListComponent } from './partials/row-item-list/row-item-list.component';
+import { PaymentComponent } from './payment/payment.component';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { RowItemListComponent } from './partials/row-item-list/row-item-list.com
     RegisterComponent,
     WishlistPageComponent,
     ProductPageComponent,
-    RowItemListComponent
+    RowItemListComponent,
+    PaymentComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,

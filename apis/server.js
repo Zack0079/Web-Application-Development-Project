@@ -78,14 +78,14 @@ app.get("/:userId/wish-list", passport.authenticate("jwt", { session: false }), 
   let id = req.params.userId;
   return new Promise((resolve, reject) => {
     wishListItemModel.find({ user_id: id }).populate('item_id')
-    .exec((err, list) => {
-      if (err) {
-        console.log(err)
-        reject(res.status(500).json({ errMsg: err }));
-      } else {
-        resolve(res.json(list))
-      }
-    })
+      .exec((err, list) => {
+        if (err) {
+          console.log(err)
+          reject(res.status(500).json({ errMsg: err }));
+        } else {
+          resolve(res.json(list))
+        }
+      })
   }).catch(err => {
     res.status(500).json({ errMsg: err });
   })
@@ -178,17 +178,54 @@ app.post("/item/:id/wishList", passport.authenticate("jwt", { session: false }),
   let item_id = req.params.id;
   let user_id = req.body.user_id;
 
-  let item = wishListItemModel({
+  let item = {
     user_id: user_id,
     item_id: item_id,
-  })
+  }
   return new Promise((resolve, reject) => {
-    wishListItemModel.create(item, (err, result) => {
+    wishListItemModel.findOne(item, (err, result) => {
       if (err) {
         console.log(err)
         reject(res.status(500).json({ errMsg: err }));
+      }
+      if (result) {
+        result.quantify += 1;
+        return result.save(function (err, item) {
+          if (err) {
+            reject(res.status(500).json({ errMsg: err }));
+          }
+          if (item) {
+            resolve(res.json({ msg: "Update wishList item successful", item: item }))
+          }
+        });
       } else {
-        resolve(res.json({ msg: "create wishList item successful", item: result }))
+        return wishListItemModel.create(wishListItemModel(item)).then(item => {
+          resolve(res.json({ msg: "create wishList item successful", item: item }))
+        })
+      }
+    })
+  }).catch(err => {
+    res.status(500).json({ errMsg: err });
+  })
+});
+
+
+app.post("/item/:id/wishList/update", passport.authenticate("jwt", { session: false }), (req, res) => {
+  let item_id = req.params.id;
+  let user_id = req.body.user_id;
+
+  let updateItem = {
+    user_id: user_id,
+    item_id: item_id,
+  }
+console.log(req.body)
+  return new Promise((resolve, reject) => {
+    wishListItemModel.findOneAndUpdate(updateItem, { "quantify": req.body.quantify }, (err, result) => {
+      if (err || !result) {
+        console.log(err)
+        reject(res.status(500).json({ errMsg: err }));
+      } else {
+        resolve(res.json({ msg: "update wishList item successful", item: result }))
       }
     })
   }).catch(err => {

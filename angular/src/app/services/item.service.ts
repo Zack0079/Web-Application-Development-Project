@@ -46,13 +46,18 @@ export class ItemService {
   }
 
   deleteItem(id: any): Observable<any> {
-    return this.http.post(`${this.api}item/${id}/delete`,{}, { 'headers': this.headers })
+    return this.http.post(`${this.api}item/${id}/delete`, {}, { 'headers': this.headers })
   }
 
 
-  addItemsInWishList(item: any, id: any ) {
+  addItemsInWishList(item: any, id: any) {
     return this.http.post(`${this.api}item/${item._id}/wishList`, { user_id: id }, { 'headers': this.headers })
   }
+
+  updateItemsInWishList(item: any, id: any) {
+    return this.http.post(`${this.api}item/${item._id}/wishList/update`, { user_id: id, "quantify": item.quantify }, { 'headers': this.headers })
+  }
+
 
   deleteItemsInWishList(item: any, id: any,) {
     return this.http.post(`${this.api}item/${item._id}/wishList/delete`, { user_id: id }, { 'headers': this.headers })
