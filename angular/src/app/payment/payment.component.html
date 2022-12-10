@@ -4,34 +4,36 @@
     <form #createItemForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <label for="recipient" class="form-label">Recipient</label>
-        <input class="form-control" name="recipient" id="recipient" value="" [(ngModel)]="recipient">
+        <input class="form-control" name="recipient" id="recipient" value="" [(ngModel)]="recipient"
+          placeholder="Enter name of recipient">
       </div>
 
       <div class="mb-3">
         <label for="address" class="form-label">Address</label>
-        <textarea class="form-control" name="address" id="address" rows="3" value="" [(ngModel)]="address"></textarea>
+        <textarea class="form-control" name="address" id="address" rows="3" value="" [(ngModel)]="address"
+          placeholder="Enter address to deliver"></textarea>
       </div>
 
       <div class="mb-3">
         <input type="checkbox" id="saveAsDefault" name="saveAsDefault" [(ngModel)]="saveAsDefault"
           [ngModelOptions]="{standalone: true}" />
-        <label for="price" class="form-label">Save as default </label>
+        <label for="price" class="form-label"> Save as default </label>
 
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Total Price: ${{total_price}}</label>
+        <label id="Total" class="form-label">Total Price: ${{total_price}}</label>
       </div>
 
       <div class="mb-3">
-        <label for="remain" class="form-label">Item List:</label>
+        <label for="remain" class="form-label">Order Summary:</label>
         <div ngClass="pt-2" *ngIf="itemInCart && itemInCart.length>0" class="row">
 
           <div *ngFor="let item of itemInCart; let i = index" class="col-12">
             <div class="row">
               <p class="col">
                 <input type="checkbox" id="selectedArray" name="selectedArray" [(ngModel)]="selectedArray[i]"
-                [ngModelOptions]="{standalone: true}" />
+                  [ngModelOptions]="{standalone: true}" />
                 Product:{{item.name}}
               </p>
               <p class="col">
@@ -41,7 +43,7 @@
                 Price:{{item.price}}
               </p>
               <p class="col">
-                Quantify:{{item.quantify}}
+                Quantity:{{item.quantify}}
               </p>
             </div>
           </div>
@@ -51,19 +53,19 @@
       <div class="mb-3">
         <label for="cardNumber" class="form-label">Card Number</label>
         <input class="form-control" id="cardNumber" name="cardNumber" value="" [(ngModel)]="cardNumber" type="tel"
-          autocomplete="cc-number" ccNumber>
+          autocomplete="cc-number" ccNumber placeholder="XXXX-XXXX-XXXX-XXXX">
       </div>
 
       <div class="mb-3">
         <label for="cardExpiry" class="form-label">Card Expiry</label>
-        <input placeholder="12 / 2022" class="form-control" id="cardExpiry" name="cardExpiry" value=""
+        <input placeholder="MM/ YYYY" class="form-control" id="cardExpiry" name="cardExpiry" value=""
           [(ngModel)]="cardExpiry" type="tel" autocomplete="cc-exp" ccExp>
       </div>
 
       <div class="mb-3">
         <label for="cardCvc" class="form-label">cvc</label>
         <input class="form-control" id="cardCvc" name="cardCvc" value="" [(ngModel)]="cardCvc" type="tel"
-          autocomplete="off" ccCvc>
+          autocomplete="off" ccCvc placeholder="XXX">
       </div>
 
       <button type="submit" class="btn btn-primary">Confirm</button>
