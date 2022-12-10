@@ -20,8 +20,8 @@ export class ItemService {
     return this.http.get(`${this.api}items/`)
   }
 
-  getItemByID(id: any): Observable<any> {
-    return this.http.get(`${this.api}item/${id}`)
+  getItemByID(id: any, price: boolean = false): Observable<any> {
+    return this.http.get(`${this.api}item/${id}?price=${price}`)
   }
 
   getItemsByShopID(shopId: any): Observable<any> {
@@ -63,6 +63,14 @@ export class ItemService {
     return this.http.post(`${this.api}item/${item._id}/wishList/delete`, { user_id: id }, { 'headers': this.headers })
   }
 
+  postOrder(list: any): Observable<any> {
+    return this.http.post(`${this.api}order/`, list, { 'headers': this.headers })
+  }
+
+  getOrder(user_id: any): Observable<any> {
+    return this.http.get(`${this.api}order/${user_id}`, { 'headers': this.headers })
+  }
+
   getItemsInCart() {
     let tmp = localStorage.getItem("cart");
     if (tmp)
@@ -70,11 +78,11 @@ export class ItemService {
     else return [];
   }
 
-  updateQuantifyInCart(selectedItemId:any, quantify: number){
+  updateQuantifyInCart(selectedItemId: any, quantify: number) {
     let tmp = localStorage.getItem('cart');
     if (tmp) {
       let storageItems = JSON.parse(tmp);
-      let index = storageItems.map((x:any) => x._id).indexOf(selectedItemId)
+      let index = storageItems.map((x: any) => x._id).indexOf(selectedItemId)
       storageItems[index].quantify = quantify;
       localStorage.setItem('cart', JSON.stringify(storageItems));
     }
@@ -87,7 +95,7 @@ export class ItemService {
     if (tmp) {
       cartList = JSON.parse(tmp);
     }
-    let index = cartList.map((x:any) => x._id).indexOf(item._id)
+    let index = cartList.map((x: any) => x._id).indexOf(item._id)
     if (index >= 0) {
       cartList[index].quantify += 1;
     } else {
@@ -99,6 +107,10 @@ export class ItemService {
 
   }
 
+  setCart(cartList: any) {
+    localStorage.setItem('cart', JSON.stringify(cartList));
+  }
+
   removeItem(selectedItemId: any) {
     let tmp = localStorage.getItem('cart');
     if (tmp) {
@@ -107,5 +119,9 @@ export class ItemService {
       console.log("certList:", certList)
       localStorage.setItem('cart', JSON.stringify(certList));
     }
+  }
+
+  removeAllItem() {
+    localStorage.removeItem('cart');
   }
 }

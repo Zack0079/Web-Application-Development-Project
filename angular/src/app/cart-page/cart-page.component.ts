@@ -6,6 +6,7 @@ import { ItemService } from '../services/item.service';
   templateUrl: './cart-page.component.html',
   styleUrls: ['./cart-page.component.scss']
 })
+
 export class CartPageComponent implements OnInit {
 
   itemInCart:any;
@@ -13,7 +14,6 @@ export class CartPageComponent implements OnInit {
   constructor(private itemAPIs:ItemService) { }
 
   ngOnInit(): void {
-    
     this.itemInCart = this.itemAPIs.getItemsInCart();
     console.log("itemInCart:",this.itemInCart)
   }

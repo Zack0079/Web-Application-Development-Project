@@ -9,27 +9,65 @@
 
       <div class="mb-3">
         <label for="address" class="form-label">Address</label>
-        <textarea class="form-control" name="address" id="address" rows="3" value=""
-        [(ngModel)]="address"></textarea>
+        <textarea class="form-control" name="address" id="address" rows="3" value="" [(ngModel)]="address"></textarea>
       </div>
 
       <div class="mb-3">
-        <label for="price" class="form-label">Total Price: ${{total_price}}</label>
-      </div>
-      <div class="mb-3">
-        <label for="remain" class="form-label">Item List</label>
-      </div>
-      <div class="mb-3">
-        <label for="card" class="form-label">Card No.</label>
-        <input class="form-control" name="card" id="card" value="" [(ngModel)]="card">
+        <input type="checkbox" id="saveAsDefault" name="saveAsDefault" [(ngModel)]="saveAsDefault"
+          [ngModelOptions]="{standalone: true}" />
+        <label for="price" class="form-label">Save as default </label>
+
       </div>
 
       <div class="mb-3">
-        <label for="recipient" class="form-label">Cardholder</label>
-        <input class="form-control" name="recipient" id="recipient" value="" [(ngModel)]="recipient">
+        <label class="form-label">Total Price: ${{total_price}}</label>
+      </div>
+
+      <div class="mb-3">
+        <label for="remain" class="form-label">Item List:</label>
+        <div ngClass="pt-2" *ngIf="itemInCart && itemInCart.length>0" class="row">
+
+          <div *ngFor="let item of itemInCart; let i = index" class="col-12">
+            <div class="row">
+              <p class="col">
+                <input type="checkbox" id="selectedArray" name="selectedArray" [(ngModel)]="selectedArray[i]"
+                [ngModelOptions]="{standalone: true}" />
+                Product:{{item.name}}
+              </p>
+              <p class="col">
+                Type:{{item.type}}
+              </p>
+              <p class="col">
+                Price:{{item.price}}
+              </p>
+              <p class="col">
+                Quantify:{{item.quantify}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="cardNumber" class="form-label">Card Number</label>
+        <input class="form-control" id="cardNumber" name="cardNumber" value="" [(ngModel)]="cardNumber" type="tel"
+          autocomplete="cc-number" ccNumber>
+      </div>
+
+      <div class="mb-3">
+        <label for="cardExpiry" class="form-label">Card Expiry</label>
+        <input placeholder="12 / 2022" class="form-control" id="cardExpiry" name="cardExpiry" value=""
+          [(ngModel)]="cardExpiry" type="tel" autocomplete="cc-exp" ccExp>
+      </div>
+
+      <div class="mb-3">
+        <label for="cardCvc" class="form-label">cvc</label>
+        <input class="form-control" id="cardCvc" name="cardCvc" value="" [(ngModel)]="cardCvc" type="tel"
+          autocomplete="off" ccCvc>
       </div>
 
       <button type="submit" class="btn btn-primary">Confirm</button>
+
     </form>
   </div>
 </div>

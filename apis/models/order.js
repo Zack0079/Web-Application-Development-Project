@@ -14,6 +14,11 @@ let orderItemModel = mongoose.Schema({
     required: "Item Id number is required",
     ref: 'Item'
   },
+  item_name: {
+    type: String,
+    required: "Item name is required",
+    default: ""
+  },
   quantify: {
     type: Number,
     required: true,

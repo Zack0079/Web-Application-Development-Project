@@ -15,14 +15,11 @@
             <div class="price-wrap mt-2">
               <span class="price">${{item.price}}</span>
             </div>
-            <div class="price-wrap mt-2">
-              <span class="price">Remain: {{item.remain}}</span>
-            </div>
           </div>
         </a>
         
         <div *ngIf="showQuantify" class="price-wrap mt-2">
-          <select (change)="updateQuantify(item)" [(ngModel)]="item.quantify">
+          <select [disabled]="disableQuantify" (change)="updateQuantify(item)" [(ngModel)]="item.quantify">
             <option *ngFor="let num of numbers" [ngValue]="num">
               {{ num }}
             </option>

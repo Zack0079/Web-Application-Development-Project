@@ -14,6 +14,7 @@ const auth = require('./auth-service');
 const itemModel = require('./models/item');
 const userModel = require('./models/user');
 const wishListItemModel = require('./models/wish-list');
+const orderItemModel = require('./models/order');
 
 const app = express();
 
@@ -44,13 +45,18 @@ app.get("/items", (req, res) => {
 // get item list api
 app.get("/item/:id", (req, res) => {
   let itemId = req.params.id;
+  let price = req.query.price;
 
   itemModel.findById(itemId, (err, item) => {
     if (err) {
       console.log(err)
       res.json(err.message)
     } else {
-      res.json(item)
+      if (price === "true") {
+        res.json(item.price)
+      } else {
+        res.json(item)
+      }
     }
   })
 });
@@ -218,7 +224,7 @@ app.post("/item/:id/wishList/update", passport.authenticate("jwt", { session: fa
     user_id: user_id,
     item_id: item_id,
   }
-console.log(req.body)
+  console.log(req.body)
   return new Promise((resolve, reject) => {
     wishListItemModel.findOneAndUpdate(updateItem, { "quantify": req.body.quantify }, (err, result) => {
       if (err || !result) {
@@ -257,12 +263,51 @@ app.post("/item/:id/wishList/delete", passport.authenticate("jwt", { session: fa
   })
 });
 
+app.post("/order", passport.authenticate("jwt", { session: false }), (req, res) => {
+  let list = req.body;
+  console.log("order")
+
+  return new Promise((resolve, reject) => {
+    orderItemModel.create(list, (err, result) => {
+      console.log("result:", result)
+      if (err) {
+        console.log(err)
+        reject(res.status(500).json({ errMsg: err }));
+      } else {
+        resolve(res.json({ msg: "Create Order successful" }))
+      }
+    })
+  }).catch(err => {
+    res.status(500).json({ errMsg: err });
+  })
+});
+
+app.get("/order/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
+  let user_id = req.params.id;
+
+  return new Promise((resolve, reject) => {
+    orderItemModel.find({ user_id: user_id })
+      .sort([['order_id', -1], ['created', -1]])
+      .exec((err, result) => {
+        if (err) {
+          console.log(err)
+          reject(res.status(500).json({ errMsg: err }));
+        } else {
+          resolve(res.json({ msg: "Get Order successful", result: result }))
+        }
+      })
+  }).catch(err => {
+    res.status(500).json({ errMsg: err });
+  })
+});
 
 app.post("/auth/login", auth.login);
 
-
 app.post("/auth/register", auth.register);
 
+app.post("/auth/user/:id/update", passport.authenticate("jwt", { session: false }), auth.updateAddress);
+
+app.get("/auth/user/:id/ship", passport.authenticate("jwt", { session: false }), auth.getShip);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

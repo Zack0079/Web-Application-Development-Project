@@ -99,3 +99,47 @@ module.exports.register = async (req, res, next) => {
     })
   }
 }
+
+
+// update user address and recipient api
+module.exports.updateAddress = async (req, res, next) => {
+  let userId = req.params.id;
+  let address = req.body.address;
+  let recipient = req.body.recipient;
+
+  return new Promise((resolve, reject) => {
+    User.findOneAndUpdate({ _id: userId }, { "address": address, "recipient": recipient }, (err, result) => {
+      if (err || !result) {
+        console.log(err)
+        reject(res.status(500).json({ errMsg: err }));
+      } else {
+        resolve(res.json({ msg: "update user address and recipient successful", user: result }))
+      }
+    })
+  }).catch(err => {
+    res.status(500).json({ errMsg: err });
+  })
+};
+
+// get user address and recipient api
+module.exports.getShip = async (req, res, next) => {
+  let userId = req.params.id;
+  return new Promise((resolve, reject) => {
+    User.findOne({ _id: userId }, (err, result) => {
+      if (err || !result) {
+        console.log(err)
+        reject(res.status(500).json({ errMsg: err }));
+      } else {
+        resolve(
+          res.json({ 
+              msg: "get address and recipient successful", 
+              address: result.address,
+              recipient: result.recipient,
+            })
+          )
+      }
+    })
+  }).catch(err => {
+    res.status(500).json({ errMsg: err });
+  })
+};

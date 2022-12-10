@@ -31,6 +31,14 @@ let userModel = mongoose.Schema({
     default: 3, //1 is admin, 2 is shop, 3 is customer 
     required: true
   },
+  address: {
+    type: String,
+    default: "", 
+  },
+  recipient: {
+    type: String,
+    default: "",
+  },
   created: {
     type: Date,
     default: Date.now(),

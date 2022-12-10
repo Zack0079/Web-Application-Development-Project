@@ -1,1 +1,15 @@
-<p>order works!</p>
+<div class="container">
+  <h2>Your Orders</h2>
+  <div *ngIf="items && items.length > 0">
+    <div *ngFor="let subItemList of items" class="col-12 pt-2">
+      <h3>Your Order on {{subItemList[0].created.split("T")[0]}}</h3>
+      <app-row-item-list [items]="subItemList" [showQuantify]="true" [disableQuantify]="true">
+      </app-row-item-list>
+    </div>
+  </div>
+
+
+  <div *ngIf="!items || items.length == 0" class="flex">
+    <p>There are no order</p>
+  </div>
+</div>

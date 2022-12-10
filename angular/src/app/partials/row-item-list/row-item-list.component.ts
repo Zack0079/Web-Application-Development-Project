@@ -16,6 +16,7 @@ export class RowItemListComponent implements OnInit {
   @Input() Button2Text: any;
 
   @Input() showQuantify: any;
+  @Input() disableQuantify: boolean = false;
 
   @Input() itemUri: string = "";
   @Output() clickButton1Event = new EventEmitter<string>();

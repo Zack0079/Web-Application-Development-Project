@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,7 @@ import { FooterComponent } from './partials/footer/footer.component';
 import { RowItemListComponent } from './partials/row-item-list/row-item-list.component';
 import { PaymentComponent } from './payment/payment.component';
 import { OrderComponent } from './order/order.component';
+import { CreditCardDirectivesModule } from 'angularx-cc-library';
 
 @NgModule({
   declarations: [
@@ -39,11 +40,14 @@ import { OrderComponent } from './order/order.component';
     PaymentComponent,
     OrderComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    CreditCardDirectivesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
