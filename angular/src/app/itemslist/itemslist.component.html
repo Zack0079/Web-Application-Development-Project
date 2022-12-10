@@ -1,8 +1,5 @@
-<div ngClass="pt-2" *ngIf="itemList && itemList.length>0" class="row">
-  <h2>Item List</h2>
-  <!-- <div class="flex">
-    <a routerLink="/item" class="btn btn-block btn-primary float-right">Create</a>
-  </div> -->
+<div ngClass="pt-2 " *ngIf="itemList && itemList.length>0" class="row">
+  <h2 class="heading">Item List</h2>
   <div *ngFor="let item of itemList" class="col-md-4">
     <figure class="card card-product-grid">
       <a class="text-reset text-decoration-none" [routerLink]="['/item',item._id]">
@@ -11,18 +8,18 @@
         </div>
       </a>
 
-      <figcaption class="px-2 pb-2 info-wrap">
+      <figcaption class="px-5 pb-2 info-wrap ">
         <a class="text-reset text-decoration-none" [routerLink]="['/item',item._id]">
           <span class="type"> {{item.type}} </span>
           <div class="fix-height">
             <h6 class="title">{{item.name}}</h6>
             <div class="price-wrap mt-2">
-              <span class="price">{{item.price}}</span>
+              <span class="price">{{item.price}} $</span>
             </div>
           </div>
         </a>
-        <button (click)="addSelectedItemInCart(item)" class="btn btn-block btn-primary">Add to cart </button>
-        <button (click)="addSelectedItemInWishList(item)" class="btn btn-block btn-primary">Add to Wishlist </button>
+        <button (click)="addSelectedItemInCart(item)" class= "button">Add to cart </button>
+        <button (click)="addSelectedItemInWishList(item)" class="button">Wishlist </button>
       </figcaption>
     </figure>
   </div>

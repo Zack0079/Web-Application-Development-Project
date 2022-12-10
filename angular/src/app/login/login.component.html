@@ -1,16 +1,18 @@
 <div class="">
-  <h2>{{title}}</h2>
-  <div class="pt-2 container row">
+  <h2 class="heading">{{title}}</h2>
+  <div class="container">
     <form #loginForm="ngForm" (ngSubmit)="login()">
-      <div class="mb-3">
+      <div class="un">
         <label for="username" class="form-label">Username</label>
         <input class="form-control" name="username" id="username" value="" [(ngModel)]="data.username">
       </div>
-      <div class="mb-3">
+      <div class="pass">
         <label for="password" class="form-label">Password</label>
         <input type="password" name="password" class="form-control" id="password" value="" [(ngModel)]="data.password">
+        <br>
+        <button type="submit" class="button">Login</button>
       </div>
-      <button type="submit" class="btn btn-primary">Login</button>
+     
     </form>
   </div>
 </div>
