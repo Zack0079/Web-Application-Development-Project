@@ -1,0 +1,35 @@
+<div class="">
+  <h2>{{title}}</h2>
+  <div class="pt-2 container row">
+    <form #createItemForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="recipient" class="form-label">Recipient</label>
+        <input class="form-control" name="recipient" id="recipient" value="" [(ngModel)]="recipient">
+      </div>
+
+      <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <textarea class="form-control" name="address" id="address" rows="3" value=""
+        [(ngModel)]="address"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="price" class="form-label">Total Price: ${{total_price}}</label>
+      </div>
+      <div class="mb-3">
+        <label for="remain" class="form-label">Item List</label>
+      </div>
+      <div class="mb-3">
+        <label for="card" class="form-label">Card No.</label>
+        <input class="form-control" name="card" id="card" value="" [(ngModel)]="card">
+      </div>
+
+      <div class="mb-3">
+        <label for="recipient" class="form-label">Cardholder</label>
+        <input class="form-control" name="recipient" id="recipient" value="" [(ngModel)]="recipient">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Confirm</button>
+    </form>
+  </div>
+</div>

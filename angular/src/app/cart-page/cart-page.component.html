@@ -1,5 +1,8 @@
 <div class="container">
   <h2>Cart List</h2>
+  <div class="flex">
+    <a routerLink="/payment" class="btn btn-block btn-primary float-right">Payment</a>
+  </div>
   <app-row-item-list [items]="itemInCart" [showButton1]="true" [showQuantify]="true" [Button1Text]="'Remove'"
     (updateQuantifyEvent)="updateQuantify($event)" (clickButton1Event)="removeItemInCart($event)">
   </app-row-item-list>
