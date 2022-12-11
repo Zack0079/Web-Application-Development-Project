@@ -1,7 +1,7 @@
 <div ngClass="pt-2" *ngIf="items && items.length>0" class="row">
 
-  <div *ngFor="let item of items" class="col-12">
-    <figure class="card card-product-grid">
+  <div *ngFor="let item of items" class="col-12 ">
+    <figure class="card card-product-grid px-4 py-3">
       <a class="text-reset text-decoration-none" [routerLink]="['/item',item._id,itemUri]">
         <div class="ps-2 pt-2 img-wrap">
           <img src="/assets/images/Box.png">
@@ -18,7 +18,7 @@
           </div>
         </a>
         
-        <div *ngIf="showQuantify" class="price-wrap mt-2">
+        <div *ngIf="showQuantify" class="price-wrap mt-2 mb-4">
           <select [disabled]="disableQuantify" (change)="updateQuantify(item)" [(ngModel)]="item.quantify">
             <option *ngFor="let num of numbers" [ngValue]="num">
               {{ num }}

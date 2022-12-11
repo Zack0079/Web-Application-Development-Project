@@ -128,6 +128,8 @@ export class PaymentComponent implements OnInit {
           this.selectedArray.forEach((value, index, array) => {
             if (value) {
               let item = this.itemInCart[index];
+              this.itemAPIs.removeItem(item._id);
+
               this.itemAPIs.updateItemRemain(item._id, item.quantify).subscribe((res) => {
                 if (res && res.msg) {
                   return;
@@ -141,7 +143,7 @@ export class PaymentComponent implements OnInit {
           });
         });
       }).then(() => {
-        this.itemAPIs.removeAllItem();
+
         this.router.navigate(["/order"])
         return;
       }).catch(err => console.log(err))
