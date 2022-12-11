@@ -7,7 +7,8 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class ItemService {
-  api: string = "http://localhost:8080/"
+  // api: string = "http://localhost:8080/"
+  api:string = "http://18.217.40.159:8080/"
   constructor(private http: HttpClient, private auth: AuthService) { }
 
 

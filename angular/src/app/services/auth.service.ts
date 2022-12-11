@@ -11,7 +11,9 @@ import jwt_decode from 'jwt-decode';
 export class AuthService {
 
   constructor(private http: HttpClient, private router: Router,) { }
-  api: string = "http://localhost:8080/auth/"
+  // api: string = "http://localhost:8080/auth/"
+  api:string = "http://18.217.40.159:8080/auth/"
+
   headers = new HttpHeaders()
     .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*')

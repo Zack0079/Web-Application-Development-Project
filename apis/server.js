@@ -19,7 +19,7 @@ const orderItemModel = require('./models/order');
 const app = express();
 
 let corsOptions = {
-  origin: "http://localhost:4200"
+  origin: "http://sixber-website.s3-website.us-east-2.amazonaws.com/"
 };
 
 app.use(cors(corsOptions));
