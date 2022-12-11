@@ -1,7 +1,7 @@
 <div class="container">
   <h2>Your cart</h2>
   <div *ngIf="itemInCart && itemInCart.length > 0" class="flex">
-    <a routerLink="/payment" class="btn btn-block btn-primary float-right">Payment</a>
+    <a routerLink="/payment" class="button btn-block float-right">Payment</a>
   </div>
   <app-row-item-list [items]="itemInCart" [showButton1]="true" [showQuantify]="true" [Button1Text]="'Cancel'"
     (updateQuantifyEvent)="updateQuantify($event)" (clickButton1Event)="removeItemInCart($event)">

@@ -1,7 +1,9 @@
+@import '../../app.component.scss';
 .icon-img{
   width: 100px;
   display: inline-block;
 }
+
 a {
   position: relative;
   color: #000;
@@ -28,3 +30,8 @@ a::before {
 a:hover::before {
   transform: scaleX(1);
 }
+
+#head{
+  background-color: #EE4E34;
+}
+

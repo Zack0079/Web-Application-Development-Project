@@ -1,8 +1,9 @@
-<div class="container">
-  <h2>{{title}}</h2>
-  <div class="pt-2 container row">
+<div class="">
+  <h2 class="heading">{{title}}</h2>
+  <div class="container">
+
     <form #loginForm="ngForm" (ngSubmit)="login()">
-      <div class="mb-3">
+      <div class="un">
         <label for="username" class="form-label">Username</label>
         <input minlength="4" required class="form-control" #username="ngModel" name="username" id="username" value=""
           [(ngModel)]="data.username">
@@ -10,19 +11,23 @@
           Error: username is invalid. At least 4 digit.
         </div>
       </div>
-      <div class="mb-3">
+      <div class="pass">
         <label for="password" class="form-label">Password</label>
-        <input required minlength="6" type="password" #pw="ngModel" name="password" class="form-control" id="password" value=""
-          [(ngModel)]="data.password">
+        <input required minlength="6" type="password" #pw="ngModel" name="password" class="form-control" id="password"
+          value="" [(ngModel)]="data.password">
         <div class="text-danger" *ngIf="pw.invalid && showErrorMsg">
           Error: password is required. At least 6 digit
         </div>
-      </div>
-      <div class="text-danger" *ngIf="errorMsg != ''">
-        Login failure. Please check your input
+        <div class="text-danger" *ngIf="errorMsg != ''">
+          Login failure. Please check your input
+        </div>
       </div>
 
-      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid && showErrorMsg">Login</button>
+      <div class="pass" >
+        <button type="submit" class="button" [disabled]="!loginForm.form.valid && showErrorMsg">Login</button>
+      </div>
+
     </form>
+
   </div>
 </div>
