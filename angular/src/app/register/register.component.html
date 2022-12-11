@@ -1,39 +1,62 @@
-<div class="">
+<div class="container">
   <h2>Sign Up</h2>
   <div class="pt-2 container row">
-    <form #loginForm="ngForm" (ngSubmit)="register()">
+    <form #registerForm="ngForm" (ngSubmit)="register()">
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
-        <input class="form-control" name="username" id="username" value="" [(ngModel)]="data.username">
+        <input minlength="4" #username="ngModel" required class="form-control" name="username" id="username" value=""
+          [(ngModel)]="data.username">
+        <div class="text-danger" *ngIf="username.invalid && showErrorMsg">
+          Error: username is invalid. At least 4 digit
+        </div>
       </div>
 
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="email" name="email" class="form-control" id="email" value="" [(ngModel)]="data.email">
+        <input required type="email" name="email" ngModel email="true" #email="ngModel" name="email"
+          class="form-control" id="email" value="" [(ngModel)]="data.email"  (change)="validateEmail(data.email)"/>
+        <div class="text-danger" *ngIf="email.invalid && showErrorMsg">
+          Error: email is invalid.
+        </div>
       </div>
 
       <div class="mb-3">
         <label for="displayName" class="form-label">Display Name</label>
-        <input class="form-control" name="displayName" id="displayName" value="" [(ngModel)]="data.displayName">
+        <input required class="form-control" #displayName="ngModel" name="displayName" id="displayName" value=""
+          [(ngModel)]="data.displayName">
+        <div class="text-danger" *ngIf="displayName.invalid && showErrorMsg">
+          Error: displayName is required.
+        </div>
       </div>
 
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" id="password" value="" [(ngModel)]="data.password">
+        <input required minlength="6" #pw="ngModel" type="password" name="password" class="form-control" id="password"
+          value="" [(ngModel)]="data.password">
+        <div class="text-danger" *ngIf="pw.invalid && showErrorMsg">
+          Error: password is invalid. At least 6 digit
+        </div>
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Repeat Password</label>
-        <input type="password" name="password" class="form-control" id="password" value="" [(ngModel)]="data.repeatedPassword">
+        <input required minlength="6" #rpw="ngModel" type="password" name="password" class="form-control" id="password"
+          value="" [(ngModel)]="data.repeatedPassword">
+        <div class="text-danger" *ngIf="rpw.invalid && showErrorMsg">
+          Error: Repeat password is invalid. At least 6 digit
+        </div>
+        <div class="text-danger" *ngIf="data.password != data.repeatedPassword && showErrorMsg">
+          Error: Repeat password is same as password. Please input again
+        </div>
       </div>
 
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="shop" id="shop" [(ngModel)]="data.role"  value="2">
+        <input class="form-check-input" type="radio" name="shop" id="shop" [(ngModel)]="data.role" value="2">
         <label class="form-check-label" for="shop">
           Shop
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="customer" id="customer" [(ngModel)]="data.role"  value="3" checked>
+        <input class="form-check-input" type="radio" name="customer" id="customer" [(ngModel)]="data.role" value="3">
         <label class="form-check-label" for="customer">
           Customer
         </label>

@@ -1,17 +1,23 @@
 <div class="">
   <h2>{{title}}</h2>
   <div class="pt-2 container row">
-    <form #createItemForm="ngForm" (ngSubmit)="onSubmit()">
+    <form #paymentForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <label for="recipient" class="form-label">Recipient</label>
-        <input class="form-control" name="recipient" id="recipient" value="" [(ngModel)]="recipient"
-          placeholder="Enter name of recipient">
+        <input class="form-control" required #recipient="ngModel" name="recipient" id="recipient" value=""
+          [(ngModel)]="data.recipient" placeholder="Enter name of recipient">
+        <div class="text-danger" *ngIf="recipient.invalid && showErrorMsg">
+          Error: Recipient is required.
+        </div>
       </div>
 
       <div class="mb-3">
         <label for="address" class="form-label">Address</label>
-        <textarea class="form-control" name="address" id="address" rows="3" value="" [(ngModel)]="address"
-          placeholder="Enter address to deliver"></textarea>
+        <textarea class="form-control" required #address="ngModel" name="address" id="address" rows="3" value=""
+          [(ngModel)]="data.address" placeholder="Enter address to deliver"></textarea>
+        <div class="text-danger" *ngIf="address.invalid && showErrorMsg">
+          Error: Address is required.
+        </div>
       </div>
 
       <div class="mb-3">
@@ -23,6 +29,9 @@
 
       <div class="mb-3">
         <label id="Total" class="form-label">Total Price: ${{total_price}}</label>
+        <div class="text-danger" *ngIf="total_price<=0 && showErrorMsg">
+          Please select at least one item in your cart.
+        </div>
       </div>
 
       <div class="mb-3">
@@ -32,8 +41,8 @@
           <div *ngFor="let item of itemInCart; let i = index" class="col-12">
             <div class="row">
               <p class="col">
-                <input type="checkbox" id="selectedArray" name="selectedArray" [(ngModel)]="selectedArray[i]"
-                  [ngModelOptions]="{standalone: true}" />
+                <input (click)="updateTotalPrice()" type="checkbox" id="selectedArray" name="selectedArray"
+                  [(ngModel)]="selectedArray[i]" [ngModelOptions]="{standalone: true}" />
                 Product:{{item.name}}
               </p>
               <p class="col">
@@ -51,21 +60,40 @@
       </div>
 
       <div class="mb-3">
+        <label for="cardHolder" class="form-label">Card Holder</label>
+        <input minlength="3" required #cardHolder="ngModel" class="form-control" id="cardHolder" name="cardHolder"
+          value="" [(ngModel)]="data.cardHolder" type="text" placeholder="Card Holder Name">
+        <div class="text-danger" *ngIf="cardHolder.invalid && showErrorMsg">
+          Error: Card Holder is invalid.
+        </div>
+      </div>
+
+      <div class="mb-3">
         <label for="cardNumber" class="form-label">Card Number</label>
-        <input class="form-control" id="cardNumber" name="cardNumber" value="" [(ngModel)]="cardNumber" type="tel"
-          autocomplete="cc-number" ccNumber placeholder="XXXX-XXXX-XXXX-XXXX">
+        <input minlength="16" required #cardNumber="ngModel" class="form-control" id="cardNumber" name="cardNumber"
+          value="" [(ngModel)]="data.cardNumber" type="tel" autocomplete="cc-number" ccNumber
+          placeholder="XXXX-XXXX-XXXX-XXXX">
+        <div class="text-danger" *ngIf="cardNumber.invalid && showErrorMsg">
+          Error: Card Number is invalid.
+        </div>
       </div>
 
       <div class="mb-3">
         <label for="cardExpiry" class="form-label">Card Expiry</label>
-        <input placeholder="MM/ YYYY" class="form-control" id="cardExpiry" name="cardExpiry" value=""
-          [(ngModel)]="cardExpiry" type="tel" autocomplete="cc-exp" ccExp>
+        <input required #cardExpiry="ngModel" placeholder="MM/ YYYY" class="form-control" id="cardExpiry"
+          name="cardExpiry" value="" [(ngModel)]="data.cardExpiry" type="tel" autocomplete="cc-exp" ccExp>
+        <div class="text-danger" *ngIf="cardExpiry.invalid && showErrorMsg">
+          Error: Card Expiry is required.
+        </div>
       </div>
 
       <div class="mb-3">
         <label for="cardCvc" class="form-label">cvc</label>
-        <input class="form-control" id="cardCvc" name="cardCvc" value="" [(ngModel)]="cardCvc" type="tel"
-          autocomplete="off" ccCvc placeholder="XXX">
+        <input minlength="3" maxlength="3" required #cardCvc="ngModel" class="form-control" id="cardCvc" name="cardCvc" value=""
+          [(ngModel)]="data.cardCvc" type="tel" autocomplete="off" ccCvc placeholder="XXX">
+        <div class="text-danger" *ngIf="cardCvc.invalid && showErrorMsg">
+          Error: cvc is invlaid.
+        </div>
       </div>
 
       <button type="submit" class="btn btn-primary">Confirm</button>

@@ -32,7 +32,7 @@ app.use(bodyParser.json())
 
 // get items list api
 app.get("/items", (req, res) => {
-  itemModel.find({ status: 1 }, (err, list) => {
+  itemModel.find({ status: 1 , remain:{$gt: 0,}}, (err, list) => {
     if (err) {
       console.log(err)
       res.json(err.message)
@@ -153,14 +153,19 @@ app.post("/item/:id", passport.authenticate("jwt", { session: false }), (req, re
 // update item remain number api
 app.post("/item/:id/remain", passport.authenticate("jwt", { session: false }), (req, res) => {
   let itemID = req.params.id;
+  console.log(req.body)
+  return new Promise((resolve, reject) => {
 
-  itemModel.findOneAndUpdate({ _id: itemID }, { "$inc": { "remain": -req.body.subtract } }, (err, result) => {
-    if (err) {
-      console.log(err)
-      reject(res.status(500).json({ errMsg: err }));
-    } else {
-      resolve(res.json({ msg: "sold successful", itemID: itemID }))
-    }
+    itemModel.findOneAndUpdate({ _id: itemID }, { "$inc": { "remain": -req.body.sold, "sold": +req.body.sold } }, (err, result) => {
+      if (err) {
+        console.log(err)
+        reject(res.status(500).json({ errMsg: err }));
+      } else {
+        resolve(res.json({ msg: "sold successful", itemID: itemID }))
+      }
+    })
+  }).catch(err => {
+    res.status(500).json({ errMsg: err });
   })
 });
 

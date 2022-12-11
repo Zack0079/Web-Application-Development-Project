@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ItemService } from '../services/item.service';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -12,6 +11,9 @@ import { AuthService } from '../services/auth.service';
 })
 export class ModifyItemComponent implements OnInit {
   title: string = "Create Item";
+  showErrorMsg: boolean = false;
+  errorMsg: string = "";
+
   itemId: any;
   item = {
     name: "",
@@ -21,7 +23,7 @@ export class ModifyItemComponent implements OnInit {
     description: "",
     shop: "",
   };
-  buttonText:string = "Submit";
+  buttonText: string = "Submit";
 
   constructor(private authAPIs: AuthService, private itemAPIs: ItemService, private router: Router, private routerLink: ActivatedRoute) {
     this.itemId = this.routerLink.snapshot.params['id'];
@@ -39,38 +41,78 @@ export class ModifyItemComponent implements OnInit {
     }
   }
   onSubmit() {
-    let funFunction;
-    
-    if (this.itemId) {
-      funFunction = this.itemAPIs.updateItemByID(this.itemId, this.item)
-    } else {
-      funFunction = this.itemAPIs.createItem(this.item)
-    }
+    this.showError();
 
-    funFunction.subscribe((res) => {
-      console.log(res)
-      if(res && res.item && res.item){
-        this.router.navigate(["/product"])
-      }else{
-        //TODO: Error handle
+    if (
+      this.item.name &&
+      this.item.type &&
+      this.item.price &&
+      this.item.remain>=0 &&
+      this.item.description &&
+      this.item.shop
+    ) {
+      let funFunction;
+
+      if (this.itemId) {
+        funFunction = this.itemAPIs.updateItemByID(this.itemId, this.item)
+      } else {
+        funFunction = this.itemAPIs.createItem(this.item)
       }
-      
-    });
+
+      funFunction.subscribe({
+        next: res => {
+          if (res && res.item && res.item) {
+            this.router.navigate(["/product"])
+          } else {
+            this.showError();
+          }
+        },
+        error: err => {
+          this.errorMsg = err.errMsg;
+          this.showError();
+        },
+        complete: () => console.log('done')
+
+      });
+    } else {
+      this.showError();
+    }
   }
   getItem() {
-    this.itemAPIs.getItemByID(this.itemId).subscribe((item) => {
-      this.item = item;
+    this.itemAPIs.getItemByID(this.itemId).subscribe({
+      next: item => {
+        if (item) {
+          this.item = item;       
+         } else {
+          this.showError();
+        }
+      },
+      error: err => {
+        this.errorMsg = err.errMsg;
+        this.showError();
+      },
+      complete: () => console.log('done')
     });
   }
 
-  deleteItem(){
-    this.itemAPIs.deleteItem(this.itemId).subscribe((res) => {
-      console.log(res)
-      if(res && res.item && res.item){
-        this.router.navigate(["/product"])
-      }else{
-        //TODO: Error handle
-      }
+  deleteItem() {
+    this.itemAPIs.deleteItem(this.itemId).subscribe({
+      next: res => {
+        if (res && res.item && res.item) {
+          this.router.navigate(["/product"])
+        } else {
+          //TODO: Error handle
+        }
+      },
+      error: err => {
+        this.errorMsg = err.errMsg;
+        this.showError();
+      },
+      complete: () =>  this.router.navigate(["/product"])
     });
+  }
+
+  showError() {
+    this.showErrorMsg = true;
   }
 }

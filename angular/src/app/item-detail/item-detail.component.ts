@@ -23,7 +23,9 @@ export class ItemDetailComponent implements OnInit {
     });
   }
 
-  addSelectedItemInCart(selectedItem:any):void{
-    this.itemAPIs.addItemInCart(selectedItem)
+  addSelectedItemInCart(selectedItem: any): void {
+    if (selectedItem.remain > 0) {
+      this.itemAPIs.addItemInCart(selectedItem)
+    }
   }
 }

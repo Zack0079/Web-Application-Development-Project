@@ -47,8 +47,8 @@ module.exports.login = (req, res) => {
               displayName: user.displayName,
               role: user.role,
             }
-
-            let token = jwt.sign(payload, jwt_obj.secretOrKey, expiredIn);
+            //expiredIn
+            let token = jwt.sign(payload, jwt_obj.secretOrKey);
             return res.json({ msg: "Login successful", token: token });
           } else {
             return res.status(400).json({ errMsg: "Incorrect Date" });
@@ -89,7 +89,8 @@ module.exports.register = async (req, res, next) => {
             displayName: user.displayName,
             role: user.role
           }
-          let token = jwt.sign(payload, jwt_obj.secretOrKey, expiredIn);
+          //expiredIn
+          let token = jwt.sign(payload, jwt_obj.secretOrKey);
           resolve(res.json({ msg: "Signup successful", token: token }))
         }
       });

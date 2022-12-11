@@ -8,24 +8,44 @@
     <form #createItemForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <label for="name" class="form-label">Item Name</label>
-        <input class="form-control" name="name" id="name" value="" [(ngModel)]="item.name">
+        <input class="form-control" required #name="ngModel" name="name" id="name" value="" [(ngModel)]="item.name">
+        <div class="text-danger" *ngIf="name.invalid && showErrorMsg">
+          Error: Item Name is required.
+        </div>
       </div>
+
       <div class="mb-3">
         <label for="type" class="form-label">Item Type</label>
-        <input class="form-control" name="type" id="type" value="" [(ngModel)]="item.type">
+        <input class="form-control" required #type="ngModel" name="type" id="type" value="" [(ngModel)]="item.type">
+        <div class="text-danger" *ngIf="type.invalid && showErrorMsg">
+          Error: Item type is required.
+        </div>
       </div>
+
       <div class="mb-3">
         <label for="price" class="form-label">Item Price</label>
-        <input type="number" name="price" class="form-control" id="price" value="" [(ngModel)]="item.price">
+        <input type="number" required #price="ngModel" name="price" class="form-control" id="price" value="" [(ngModel)]="item.price">
+        <div class="text-danger" *ngIf="(price.invalid || item.price <= 0) && showErrorMsg">
+          Error: Item price must lager than 0.
+        </div>
       </div>
+
       <div class="mb-3">
         <label for="remain" class="form-label">Item Remain</label>
-        <input type="number" step="1" name="remain" class="form-control" id="remain" value="" [(ngModel)]="item.remain">
+        <input type="number" required #remain="ngModel" step="1" name="remain" class="form-control" id="remain" value="" [(ngModel)]="item.remain">
+        <div class="text-danger" *ngIf="(remain.invalid || item.remain < 0) && showErrorMsg">
+          Error: Item remain must lager than 0.
+        </div>
       </div>
+
       <div class="mb-3">
         <label for="description" class="form-label">Item Description</label>
         <textarea class="form-control" name="description" id="description" rows="3" value=""
           [(ngModel)]="item.description"></textarea>
+      </div>
+
+      <div class="text-danger" *ngIf="errorMsg && showErrorMsg">
+        {{errorMsg}}
       </div>
       <button type="submit" class="btn btn-primary">{{buttonText}}</button>
       <button *ngIf="itemId" (click)="deleteItem()" class="btn btn-danger">Delete</button>

@@ -13,16 +13,16 @@
           <span class="type"> {{item.type}} </span>
         </div>
         <div class="price-wrap mt-2">
-          <span class="price">{{item.price}}</span>
+          <span class="price">Price: ${{item.price}}</span>
         </div>
         <div class="price-wrap mt-2">
-          <span class="remain">{{item.remain}}</span>
+          <span class="remain">Remian: {{item.remain}}</span>
         </div>
         <div class="price-wrap mt-2">
           <p class="desc">{{item.description}}</p>
         </div>
       </div>
-      <button (click)="addSelectedItemInCart(item)" class="btn btn-block btn-primary">Add to cart </button>
+      <button [disabled]="item.remain<=0" (click)="addSelectedItemInCart(item)" class="btn btn-block btn-primary">Add to cart </button>
     </figcaption>
   </figure>
 </div>

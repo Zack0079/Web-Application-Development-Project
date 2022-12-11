@@ -24,7 +24,7 @@ let itemModel = mongoose.Schema({
     default:0,
     required: "Remain number is required"
   },
-  Sold: {
+  sold: {
     type: Number,
     default:0,
     required: true

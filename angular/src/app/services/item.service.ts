@@ -41,8 +41,8 @@ export class ItemService {
     return this.http.post(`${this.api}item/${id}`, item, { 'headers': this.headers })
   }
 
-  updateItemRemain(id: any, remain: Number): Observable<any> {
-    return this.http.post(`${this.api}item/${id}/remain`, { "remain": remain })
+  updateItemRemain(id: any, sold: Number): Observable<any> {
+    return this.http.post(`${this.api}item/${id}/remain`, { "sold": sold }, { 'headers': this.headers })
   }
 
   deleteItem(id: any): Observable<any> {
