@@ -20,7 +20,7 @@ const orderItemModel = require('./models/order');
 const app = express();
 
 let corsOptions = {
-  origin: "https://sixber-website.s3-website.us-east-2.amazonaws.com/"
+  origin: "*"
 };
 
 app.use(cors(corsOptions));
