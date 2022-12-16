@@ -1,9 +1,11 @@
 const express = require("express");
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser')
-const cors = require('cors')
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const http = require('http');
-const https = require('https')
+const https = require('https');
+const fs = require('fs')
+
 // auth
 const session = require('express-session');
 const passport = require('passport');
@@ -321,8 +323,11 @@ DB.connect.then(() => {
   app.listen(PORT, () => {
     console.log("APIs is listening")
   });
-  http.createServer(app);
-  https.createServer({}, app).listen(4433,() => console.log('PORT :: 4433'));;
+  // http.createServer(app);
+  https.createServer({
+    key: fs.readFileSync('./server.key'),
+    cert: fs.readFileSync('./server.cert')
+  }, app).listen(4433,() => console.log('PORT :: 4433'));;
 }).catch((err) => {
   console.log(err)
   res.status(500).json(err)
