@@ -2,7 +2,8 @@ const express = require("express");
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser')
 const cors = require('cors')
-
+const http = require('http');
+const https = require('https')
 // auth
 const session = require('express-session');
 const passport = require('passport');
@@ -19,7 +20,7 @@ const orderItemModel = require('./models/order');
 const app = express();
 
 let corsOptions = {
-  origin: "http://sixber-website.s3-website.us-east-2.amazonaws.com/"
+  origin: "https://sixber-website.s3-website.us-east-2.amazonaws.com/"
 };
 
 app.use(cors(corsOptions));
@@ -320,6 +321,8 @@ DB.connect.then(() => {
   app.listen(PORT, () => {
     console.log("APIs is listening")
   });
+  http.createServer(app);
+  https.createServer({}, app).listen(4433,() => console.log('PORT :: 4433'));;
 }).catch((err) => {
   console.log(err)
   res.status(500).json(err)
